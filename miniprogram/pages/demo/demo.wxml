@@ -1,0 +1,154 @@
+<view class="demo-page">
+  <!-- 待加密明文输入卡片 -->
+  <view class="card input-card">
+    <view class="card-header">
+      <text class="card-title">国密 SM2/SM3/SM4 演示台</text>
+      <text class="engine-badge">{{useLocalEngine ? '纯JS本地引擎' : '后端商密引擎'}}</text>
+    </view>
+
+    <textarea 
+      class="plain-textarea" 
+      placeholder="请输入需要通过国密体系保护的聊天文本..." 
+      value="{{inputText}}" 
+      bindinput="onTextInput"
+      maxlength="500"
+    />
+
+    <!-- 预设示例选择 -->
+    <view class="preset-row">
+      <text class="preset-label">快捷测试：</text>
+      <view class="preset-tags">
+        <text class="preset-tag" bindtap="fillPreset" data-text="明天微积分期中考试重点在第三章和第五章，图书馆二楼见！">微积分考点</text>
+        <text class="preset-tag" bindtap="fillPreset" data-text="校园网络安全竞赛答辩项目：国密SM2/3/4端到端聊天系统！">网安答辩</text>
+        <text class="preset-tag" bindtap="fillPreset" data-text="机密文件已存入保密信箱，提取口令由SM2数字签名保护。">机密口令</text>
+      </view>
+    </view>
+
+    <!-- 引擎切换开关 -->
+    <view class="engine-switch-row">
+      <text class="engine-tip">演算引擎：</text>
+      <view class="engine-btns">
+        <text class="engine-opt {{!useLocalEngine ? 'active' : ''}}" bindtap="setEngine" data-local="{{false}}">后端商密沙箱</text>
+        <text class="engine-opt {{useLocalEngine ? 'active' : ''}}" bindtap="setEngine" data-local="{{true}}">本地离线引擎</text>
+      </view>
+    </view>
+
+    <button class="btn btn-primary run-btn" bindtap="runDemo" loading="{{running}}">
+      执行国密加解密与验真演算
+    </button>
+  </view>
+
+  <!-- 演算结果分步呈现区 -->
+  <view class="steps-section" wx:if="{{demoResult}}">
+    <!-- Step 1: SM3 密码杂凑 -->
+    <view class="card step-card">
+      <view class="step-head">
+        <view class="step-badge sm3-bg">Step 1</view>
+        <text class="step-name">SM3 密码杂凑计算 (256-bit)</text>
+      </view>
+      <view class="step-desc">为明文生成唯一的 256 位摘要指纹，用于端到端防篡改对比。</view>
+      <view class="code-box">
+        <view class="code-label-row">
+          <text class="code-label">SM3 消息摘要哈希值：</text>
+          <text class="copy-btn" bindtap="copyText" data-text="{{demoResult.step1_sm3.hash}}">复制</text>
+        </view>
+        <text class="code-text">{{demoResult.step1_sm3.hash}}</text>
+      </view>
+    </view>
+
+    <!-- Step 2: SM4 对称加密 -->
+    <view class="card step-card">
+      <view class="step-head">
+        <view class="step-badge sm4-bg">Step 2</view>
+        <text class="step-name">SM4 对称分组加密 (CBC 模式)</text>
+      </view>
+      <view class="step-desc">{{demoResult.step2_sm4_encrypt.description}}</view>
+
+      <view class="code-box">
+        <view class="code-label-row">
+          <text class="code-label">128位随机 SM4 密钥 (16字节 Hex)：</text>
+        </view>
+        <text class="code-text">{{demoResult.step2_sm4_encrypt.key_hex}}</text>
+      </view>
+
+      <view class="code-box mt-16">
+        <view class="code-label-row">
+          <text class="code-label">随机初始向量 IV (16字节 Hex)：</text>
+        </view>
+        <text class="code-text">{{demoResult.step2_sm4_encrypt.iv_hex}}</text>
+      </view>
+
+      <view class="code-box mt-16 highlight-box">
+        <view class="code-label-row">
+          <text class="code-label">加密后密文 (数据库存储内容)：</text>
+          <text class="copy-btn" bindtap="copyText" data-text="{{demoResult.step2_sm4_encrypt.ciphertext_hex}}">复制</text>
+        </view>
+        <text class="code-text cipher-code">{{demoResult.step2_sm4_encrypt.ciphertext_hex}}</text>
+      </view>
+    </view>
+
+    <!-- Step 3 & 4: SM2 密钥信封分发 -->
+    <view class="card step-card" wx:if="{{demoResult.step3_sm2_envelope}}">
+      <view class="step-head">
+        <view class="step-badge sm2-bg">Step 3 & 4</view>
+        <text class="step-name">SM2 密钥信封分发与解封</text>
+      </view>
+      <view class="step-desc">发送方用接收方 SM2 公钥加密 SM4 密钥（数字信封），接收方用 SM2 私钥解封还原出对称密钥。</view>
+
+      <view class="code-box">
+        <view class="code-label-row">
+          <text class="code-label">SM2 加密后的会话密钥信封：</text>
+        </view>
+        <text class="code-text">{{demoResult.step3_sm2_envelope.envelope_cipher_hex}}</text>
+      </view>
+
+      <view class="verify-bar success-bar mt-16">
+        <text class="bar-txt">私钥解封出对称密钥完全匹配：{{demoResult.step4_sm2_decrypt.recovered_key_hex}}</text>
+      </view>
+    </view>
+
+    <!-- Step 5 & 6: SM4 解密与明文还原 -->
+    <view class="card step-card">
+      <view class="step-head">
+        <view class="step-badge success-bg">Step 5 & 6</view>
+        <text class="step-name">SM4 解密明文与 SM3 验真</text>
+      </view>
+
+      <view class="decrypt-result-box">
+        <view class="dec-label">解密恢复出的明文：</view>
+        <view class="dec-text">{{demoResult.step5_sm4_decrypt.decrypted_text}}</view>
+      </view>
+
+      <view class="verify-bar success-bar mt-16">
+        <text class="bar-txt">SM3 完整性校验通过！内容 100% 真实未被篡改！</text>
+      </view>
+    </view>
+
+    <!-- Step 7: 篡改攻击模拟沙箱 -->
+    <view class="card step-card attack-card" wx:if="{{demoResult.step7_tamper_attack_simulation}}">
+      <view class="step-head">
+        <view class="step-badge danger-bg">Step 7</view>
+        <text class="step-name text-danger">恶意密文篡改拦截测试</text>
+      </view>
+      <view class="step-desc">模拟恶意黑客篡改密文中的 1 个字节，测试 SM3 能否即时检测并拦截：</view>
+
+      <view class="code-box danger-box">
+        <view class="code-label-row">
+          <text class="code-label">篡改后的破坏密文 Hex：</text>
+        </view>
+        <text class="code-text danger-text">{{demoResult.step7_tamper_attack_simulation.tampered_ciphertext_hex}}</text>
+      </view>
+
+      <view class="code-box mt-16">
+        <view class="code-label-row">
+          <text class="code-label">篡改密文解密结果：</text>
+        </view>
+        <text class="code-text">{{demoResult.step7_tamper_attack_simulation.tampered_decrypted_text}}</text>
+      </view>
+
+      <view class="verify-bar danger-bar mt-16">
+        <text class="bar-txt">{{demoResult.step7_tamper_attack_simulation.conclusion}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,140 @@
+<view class="security-page">
+  <!-- 顶部身份与合规等级卡片 -->
+  <view class="card identity-card">
+    <view class="identity-top">
+      <view class="avatar" style="background-color: {{avatarColor}}">
+        {{avatarChar}}
+      </view>
+      <view class="identity-info">
+        <view class="user-name">{{userInfo.nickname || userInfo.username}}</view>
+        <view class="user-sub">学号/用户名：{{userInfo.username}}</view>
+        <view class="shield-tag">
+          <text class="tag-icon">🛡️</text>
+          <text class="tag-text">商用密码应用安全性评估合规</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加密防御核心指标数据面板 -->
+  <view class="card stats-card">
+    <view class="stats-header">
+      <text class="stats-title">校园聊天密码防护指标</text>
+      <text class="stats-badge">实时统计</text>
+    </view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-num text-primary">{{stats.encrypted_conversations || 0}}</view>
+        <view class="stat-label">SM4加密会话</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num text-success">{{stats.protected_messages || 0}}</view>
+        <view class="stat-label">密文存储消息</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num text-shield">{{stats.database_plaintext_exposure || 0}} 条</view>
+        <view class="stat-label">数据库明文暴露</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num text-accent">{{stats.integrity_verification_rate || '100%'}}</view>
+        <view class="stat-label">SM3校验通过率</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 密钥状态卡片 -->
+  <view class="card key-status-card">
+    <view class="card-title-row">
+      <text class="card-title">🔑 我的国密密钥状态</text>
+      <text class="sm-badge sm-badge-sm2">SM2 椭圆曲线</text>
+    </view>
+
+    <view class="key-field">
+      <view class="key-label-row">
+        <text class="key-label">我的 SM2 公钥 (Public Key · 128位Hex)：</text>
+        <text class="copy-action" bindtap="copyPublicKey">复制公钥</text>
+      </view>
+      <view class="key-box">
+        <text class="key-code">{{sm2Info.public_key || userInfo.sm2_public_key}}</text>
+      </view>
+    </view>
+
+    <view class="key-attr-list">
+      <view class="attr-row">
+        <text class="attr-name">椭圆曲线参数：</text>
+        <text class="attr-val">sm2p256v1 (256-bit 国密推荐标准曲线)</text>
+      </view>
+      <view class="attr-row">
+        <text class="attr-name">私钥托管状态：</text>
+        <text class="attr-val text-success">已隔离加固保护，仅用于解密好友会话密钥</text>
+      </view>
+      <view class="attr-row">
+        <text class="attr-name">活跃会话密钥：</text>
+        <text class="attr-val">{{stats.active_session_keys || 0}} 对 SM4 128位对称会话密钥</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 国密三剑客规范说明 -->
+  <view class="card spec-card">
+    <view class="card-title-row">
+      <text class="card-title">📚 国密密码体系应用说明</text>
+    </view>
+
+    <!-- SM2 -->
+    <view class="spec-item">
+      <view class="spec-head">
+        <text class="sm-badge sm-badge-sm2">SM2 非对称加密</text>
+        <text class="spec-std">GB/T 32918-2016</text>
+      </view>
+      <view class="spec-text">
+        好友建立申请时，系统生成随机 128 位 SM4 会话密钥，分别用双方的 SM2 公钥封装成数字信封分发；同时在登录成功后由服务端 SM2 私钥签发防伪造令牌。
+      </view>
+    </view>
+
+    <!-- SM3 -->
+    <view class="spec-item">
+      <view class="spec-head">
+        <text class="sm-badge sm-badge-sm3">SM3 密码杂凑算法</text>
+        <text class="spec-std">GB/T 32905-2016</text>
+      </view>
+      <view class="spec-text">
+        用于用户账号密码的加盐哈希入库，具备极高抗碰撞性；每条聊天消息发送时均计算 256 位 SM3 消息哈希随密文保存，读取时自动核验，保证消息绝不被篡改。
+      </view>
+    </view>
+
+    <!-- SM4 -->
+    <view class="spec-item">
+      <view class="spec-head">
+        <text class="sm-badge sm-badge-sm4">SM4 分组密码算法</text>
+        <text class="spec-std">GB/T 32907-2016</text>
+      </view>
+      <view class="spec-text">
+        用于聊天消息内容的高速加解密。采用 CBC 分组链接模式 + 每次发送动态生成 16 字节随机初始向量 IV。服务器仅持久化保存十六进制密文与 IV，实现数据库“零明文暴露”。
+      </view>
+    </view>
+  </view>
+
+  <!-- 安全防御合规条目 -->
+  <view class="card compliance-card">
+    <view class="card-title-row">
+      <text class="card-title">🛡️ 数据库防拖库与合规保障</text>
+    </view>
+    <view class="comp-list">
+      <view class="comp-item" wx:for="{{complianceList}}" wx:key="index">
+        <text class="comp-dot">✓</text>
+        <text class="comp-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部快捷操作 -->
+  <view class="actions-card">
+    <button class="btn btn-primary" bindtap="goToDemo">
+      🔬 进入国密加解密演算实验室
+    </button>
+    <button class="btn btn-danger mt-20" bindtap="handleLogout">
+      退出当前账号
+    </button>
+  </view>
+</view>

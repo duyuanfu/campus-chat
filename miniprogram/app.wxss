@@ -1,0 +1,149 @@
+/**
+ * 全局样式表 app.wxss
+ * 风格理念：简洁、现代、规整、护眼高雅的静谧蓝 + 中性灰
+ */
+
+page {
+  background-color: #F8FAFC;
+  color: #1E293B;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+view, text, button, input, textarea {
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 卡片统一规整风格 */
+.card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  border: 1rpx solid #E2E8F0;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+}
+
+/* 按钮规范 */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: 12rpx;
+  padding: 18rpx 32rpx;
+  border: none;
+  line-height: 1.2;
+  transition: opacity 0.15s;
+}
+.btn::after {
+  border: none;
+}
+.btn:active {
+  opacity: 0.85;
+}
+
+.btn-primary {
+  background: #0284C7;
+  color: #FFFFFF;
+}
+
+.btn-secondary {
+  background: #F1F5F9;
+  color: #475569;
+}
+
+.btn-danger {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.btn-outline {
+  background: #FFFFFF;
+  border: 1rpx solid #0284C7 !important;
+  color: #0284C7;
+}
+
+/* 输入控件 */
+.input-control {
+  width: 100%;
+  height: 80rpx;
+  background: #F8FAFC;
+  border: 1rpx solid #CBD5E1;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #0F172A;
+}
+
+/* 国密徽章 */
+.sm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+.sm-badge-sm2 {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1rpx solid #BFDBFE;
+}
+.sm-badge-sm3 {
+  background: #ECFDF5;
+  color: #047857;
+  border: 1rpx solid #A7F3D0;
+}
+.sm-badge-sm4 {
+  background: #FFFBEB;
+  color: #B45309;
+  border: 1rpx solid #FDE68A;
+}
+.sm-badge-shield {
+  background: #F0FDF4;
+  color: #15803D;
+  border: 1rpx solid #BBF7D0;
+}
+
+/* 头像：规整小方圆角 */
+.avatar {
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* 空状态 */
+.empty-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 20rpx;
+  color: #94A3B8;
+}
+.empty-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+  opacity: 0.6;
+}
+.empty-text {
+  font-size: 26rpx;
+  color: #64748B;
+}

@@ -1,0 +1,32 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# ===== 虚拟环境 =====
+venv/
+env/
+.venv/
+
+# ===== 数据库与敏感密钥 =====
+*.db
+chat.db
+backend/chat.db
+server_key.json
+backend/server_key.json
+
+# ===== IDE / 编辑器 =====
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ===== 微信小程序生成文件 =====
+miniprogram_npm/
+node_modules/
+.miniprogram/

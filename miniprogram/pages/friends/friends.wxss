@@ -1,0 +1,134 @@
+.friends-page {
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+.search-card {
+  padding: 12rpx 16rpx;
+  margin-bottom: 20rpx;
+  border-radius: 14rpx;
+}
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  background: #F8FAFC;
+  border-radius: 10rpx;
+  padding: 6rpx 16rpx;
+  border: 1rpx solid #E2E8F0;
+}
+.search-icon {
+  font-size: 26rpx;
+  margin-right: 12rpx;
+  color: #94A3B8;
+}
+.search-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: #0F172A;
+  height: 64rpx;
+}
+.clear-btn {
+  font-size: 24rpx;
+  color: #94A3B8;
+  padding: 6rpx 10rpx;
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 14rpx 4rpx 14rpx;
+}
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+.section-hint {
+  font-size: 22rpx;
+  color: #64748B;
+}
+.section-tag {
+  font-size: 20rpx;
+  color: #0284C7;
+  background: #F0F9FF;
+  padding: 2rpx 10rpx;
+  border-radius: 6rpx;
+}
+.section-count {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+/* 用户项、申请项、好友项统一样式 */
+.user-item, .request-item, .friend-item {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 20rpx;
+  margin-bottom: 12rpx;
+  border-radius: 14rpx;
+}
+
+.user-info, .req-info, .friend-info {
+  flex: 1;
+  margin-left: 18rpx;
+  overflow: hidden;
+}
+
+.user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+.user-nickname {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+}
+.user-username {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+.req-time {
+  font-size: 20rpx;
+  color: #94A3B8;
+  margin-top: 4rpx;
+}
+
+.friend-badges {
+  margin-top: 6rpx;
+}
+
+.btn-action {
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+}
+
+.status-tag {
+  font-size: 22rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+.tag-wait {
+  background: #FFFBEB;
+  color: #D97706;
+}
+
+.req-actions {
+  display: flex;
+  gap: 10rpx;
+}
+.btn-mini {
+  font-size: 22rpx;
+  padding: 8rpx 18rpx;
+  border-radius: 8rpx;
+}
+
+.btn-chat {
+  font-size: 24rpx;
+  padding: 10rpx 24rpx;
+  border-radius: 10rpx;
+}

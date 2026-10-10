@@ -1,0 +1,2 @@
+# 统一行尾：仓库内始终存 LF，Windows 检出时自动转 CRLF，避免跨系统 diff 混乱
+* text=auto

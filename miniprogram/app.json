@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/friends/friends",
+    "pages/security/security",
+    "pages/demo/demo",
+    "pages/auth/index",
+    "pages/chat/chat"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#0284C7",
+    "navigationBarTitleText": "校园安全聊天 (国密SM2/SM3/SM4)",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F8FAFC"
+  },
+  "tabBar": {
+    "color": "#94A3B8",
+    "selectedColor": "#0284C7",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "消息",
+        "iconPath": "images/tab/msg.png",
+        "selectedIconPath": "images/tab/msg-active.png"
+      },
+      {
+        "pagePath": "pages/friends/friends",
+        "text": "好友",
+        "iconPath": "images/tab/friends.png",
+        "selectedIconPath": "images/tab/friends-active.png"
+      },
+      {
+        "pagePath": "pages/security/security",
+        "text": "安全中心",
+        "iconPath": "images/tab/security.png",
+        "selectedIconPath": "images/tab/security-active.png"
+      },
+      {
+        "pagePath": "pages/demo/demo",
+        "text": "加密演示",
+        "iconPath": "images/tab/demo.png",
+        "selectedIconPath": "images/tab/demo-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

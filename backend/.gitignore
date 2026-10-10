@@ -1,0 +1,31 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# ===== 虚拟环境 =====
+venv/
+env/
+.venv/
+
+# ===== 运行生成的数据（不要提交！）=====
+# SQLite 数据库
+chat.db
+# 服务器 SM2 签名密钥（敏感，需各自生成）
+server_key.json
+
+# ===== 打包文件 =====
+*.zip
+
+# ===== IDE / 编辑器 =====
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# ===== 日志与临时文件 =====
+*.log
+tmp/

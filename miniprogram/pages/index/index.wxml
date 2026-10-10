@@ -1,0 +1,60 @@
+<view class="home-container">
+  <!-- 好友申请待处理提醒条 -->
+  <view class="pending-notice-card" wx:if="{{pendingRequestsCount > 0}}" bindtap="goToFriends">
+    <view class="notice-left">
+      <text class="notice-badge">{{pendingRequestsCount}}</text>
+      <text class="notice-text">收到新的好友添加申请，点击前往处理</text>
+    </view>
+    <text class="notice-arrow">➔</text>
+  </view>
+
+  <!-- 会话列表 -->
+  <view class="conversation-section">
+    <view class="section-title-row">
+      <text class="section-title">最近安全会话</text>
+      <text class="section-count">共 {{conversations.length}} 位加密联系人</text>
+    </view>
+
+    <!-- 会话列表卡片 -->
+    <view class="conversation-list" wx:if="{{conversations.length > 0}}">
+      <view 
+        class="card conv-item" 
+        wx:for="{{conversations}}" 
+        wx:key="friend_id"
+        bindtap="openChat" 
+        data-id="{{item.friend_id}}"
+        data-name="{{item.nickname || item.username}}"
+      >
+        <!-- 头像 -->
+        <view class="avatar" style="background-color: {{item.avatarColor}}">
+          {{item.avatarChar}}
+        </view>
+
+        <!-- 会话主信息 -->
+        <view class="conv-content">
+          <view class="conv-top">
+            <view class="conv-name">{{item.nickname || item.username}}</view>
+            <view class="conv-time">{{item.formattedTime}}</view>
+          </view>
+
+          <view class="conv-bottom">
+            <view class="conv-preview {{item.has_messages ? '' : 'no-msg'}}">
+              <text class="lock-icon">🔒</text>
+              <text class="preview-text">{{item.last_message}}</text>
+            </view>
+            <view class="sm-badge sm-badge-sm4">SM4 保护</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-view" wx:else>
+      <view class="empty-icon">💬</view>
+      <view class="empty-text">暂无最近聊天会话</view>
+      <button class="btn btn-primary add-friend-btn mt-20" bindtap="goToFriends">
+        前往添加好友
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,71 @@
+<view class="chat-container">
+  <!-- 顶部极简加密提示 -->
+  <view class="chat-top-hint">
+    <text class="hint-dot"></text>
+    <text class="hint-text">国密 SM4 加密信道保护中</text>
+  </view>
+
+  <!-- 消息历史滚动区 -->
+  <scroll-view 
+    class="messages-scroll" 
+    scroll-y="true" 
+    scroll-into-view="{{scrollToView}}"
+    scroll-with-animation="{{true}}"
+  >
+    <view class="messages-wrap">
+      <!-- 消息气泡列表 -->
+      <view 
+        class="message-row {{item.sender_id === currentUserId ? 'msg-self' : 'msg-other'}}"
+        wx:for="{{messages}}" 
+        wx:key="id"
+        id="msg-{{item.id}}"
+      >
+        <!-- 他人头像 -->
+        <view 
+          class="msg-avatar" 
+          wx:if="{{item.sender_id !== currentUserId}}"
+          style="background-color: {{friendAvatarColor}}"
+        >
+          {{friendAvatarChar}}
+        </view>
+
+        <!-- 消息主体 -->
+        <view class="msg-body">
+          <view class="msg-bubble">
+            <text class="msg-text">{{item.content}}</text>
+          </view>
+          <text class="msg-time">{{item.formattedTime}}</text>
+        </view>
+
+        <!-- 自己头像 -->
+        <view 
+          class="msg-avatar" 
+          wx:if="{{item.sender_id === currentUserId}}"
+          style="background-color: {{myAvatarColor}}"
+        >
+          {{myAvatarChar}}
+        </view>
+      </view>
+
+      <view id="scroll-bottom-anchor" style="height: 16rpx;"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部输入栏 -->
+  <view class="chat-footer">
+    <input 
+      class="chat-input" 
+      placeholder="输入消息..." 
+      value="{{inputText}}" 
+      bindinput="onInput"
+      bindconfirm="handleSend"
+      confirm-type="send"
+    />
+    <button 
+      class="send-btn {{inputText.length > 0 ? 'send-active' : ''}}" 
+      bindtap="handleSend"
+    >
+      发送
+    </button>
+  </view>
+</view>

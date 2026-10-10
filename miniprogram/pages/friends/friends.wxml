@@ -1,0 +1,144 @@
+<view class="friends-page">
+  <!-- 搜索框卡片 -->
+  <view class="card search-card">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input" 
+        placeholder="搜索同学学号、用户名或昵称..." 
+        value="{{searchKeyword}}" 
+        bindinput="onSearchInput"
+        bindconfirm="handleSearch"
+      />
+      <text class="clear-btn" wx:if="{{searchKeyword}}" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- 搜索结果区（当有输入搜索时展示） -->
+  <view class="search-results-section" wx:if="{{searchKeyword.length > 0}}">
+    <view class="section-title-row">
+      <text class="section-title">搜索结果 ({{searchResults.length}})</text>
+      <text class="section-hint">点击可添加或发起加密会话</text>
+    </view>
+
+    <view class="search-list" wx:if="{{searchResults.length > 0}}">
+      <view class="card user-item" wx:for="{{searchResults}}" wx:key="id">
+        <view class="avatar" style="background-color: {{item.avatarColor}}">
+          {{item.avatarChar}}
+        </view>
+        <view class="user-info">
+          <view class="user-name-row">
+            <text class="user-nickname">{{item.nickname}}</text>
+            <text class="user-username">@{{item.username}}</text>
+          </view>
+          <view class="sm-badge sm-badge-sm2">SM2 椭圆曲线公钥用户</view>
+        </view>
+        <view class="action-wrap">
+          <button 
+            wx:if="{{item.relation === 'none'}}" 
+            class="btn btn-primary btn-action" 
+            bindtap="sendFriendReq" 
+            data-username="{{item.username}}"
+          >
+            + 加好友
+          </button>
+          <view wx:elif="{{item.relation === 'pending_sent'}}" class="status-tag tag-wait">
+            申请中
+          </view>
+          <button 
+            wx:elif="{{item.relation === 'pending_received'}}" 
+            class="btn btn-primary btn-action" 
+            bindtap="goToRequestsTab"
+          >
+            待通过
+          </button>
+          <button 
+            wx:elif="{{item.relation === 'friend'}}" 
+            class="btn btn-outline btn-action" 
+            bindtap="chatWithFriend" 
+            data-id="{{item.id}}" 
+            data-name="{{item.nickname || item.username}}"
+          >
+            发消息
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-view card" wx:elif="{{!searching}}">
+      <view class="empty-icon">🔎</view>
+      <view class="empty-text">未查找到匹配的校园同学</view>
+    </view>
+  </view>
+
+  <!-- 待处理的好友申请（收到的申请） -->
+  <view class="requests-section" wx:if="{{requests.length > 0}}">
+    <view class="section-title-row">
+      <text class="section-title">收到的好友申请 ({{requests.length}})</text>
+      <text class="section-tag">同意后将生成专属 SM4 会话密钥</text>
+    </view>
+
+    <view class="card request-item" wx:for="{{requests}}" wx:key="id">
+      <view class="avatar" style="background-color: {{item.avatarColor}}">
+        {{item.avatarChar}}
+      </view>
+      <view class="req-info">
+        <view class="user-name-row">
+          <text class="user-nickname">{{item.from_nickname || item.from_username}}</text>
+          <text class="user-username">@{{item.from_username}}</text>
+        </view>
+        <view class="req-time">申请时间：{{item.formattedTime}}</view>
+      </view>
+      <view class="req-actions">
+        <button class="btn btn-secondary btn-mini" bindtap="rejectReq" data-id="{{item.id}}">忽略</button>
+        <button class="btn btn-primary btn-mini" bindtap="acceptReq" data-id="{{item.id}}">同意</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 好友通讯录列表 -->
+  <view class="friends-list-section">
+    <view class="section-title-row">
+      <text class="section-title">我的好友通讯录</text>
+      <text class="section-count">共 {{friends.length}} 位校园好友</text>
+    </view>
+
+    <view class="friends-list" wx:if="{{friends.length > 0}}">
+      <view 
+        class="card friend-item" 
+        wx:for="{{friends}}" 
+        wx:key="id"
+        bindtap="showFriendMenu"
+        data-id="{{item.id}}"
+        data-name="{{item.nickname || item.username}}"
+        data-username="{{item.username}}"
+      >
+        <view class="avatar" style="background-color: {{item.avatarColor}}">
+          {{item.avatarChar}}
+        </view>
+        <view class="friend-info">
+          <view class="user-name-row">
+            <text class="user-nickname">{{item.nickname || item.username}}</text>
+            <text class="user-username">@{{item.username}}</text>
+          </view>
+          <view class="friend-badges">
+            <text class="sm-badge sm-badge-shield">🛡️ SM4 端到端加密</text>
+          </view>
+        </view>
+        <button 
+          class="btn btn-outline btn-chat" 
+          catchtap="chatWithFriend" 
+          data-id="{{item.id}}" 
+          data-name="{{item.nickname || item.username}}"
+        >
+          发消息
+        </button>
+      </view>
+    </view>
+
+    <view class="empty-view card" wx:else>
+      <view class="empty-icon">👥</view>
+      <view class="empty-text">通讯录空空如也，可在上方搜索学号添加同学</view>
+    </view>
+  </view>
+</view>

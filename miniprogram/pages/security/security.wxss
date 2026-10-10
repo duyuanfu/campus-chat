@@ -1,0 +1,217 @@
+.security-page {
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+.identity-card {
+  background: #FFFFFF;
+  color: #0F172A;
+  padding: 24rpx;
+  border-radius: 14rpx;
+}
+.identity-top {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.identity-info {
+  flex: 1;
+}
+.user-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+.user-sub {
+  font-size: 22rpx;
+  color: #64748B;
+  margin-top: 4rpx;
+}
+.shield-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  background: #F0F9FF;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  margin-top: 8rpx;
+  border: 1rpx solid #BAE6FD;
+}
+.tag-icon {
+  font-size: 20rpx;
+}
+.tag-text {
+  font-size: 20rpx;
+  color: #0369A1;
+  font-weight: 500;
+}
+
+/* 统计卡片 */
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20rpx;
+}
+.stats-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+.stats-badge {
+  font-size: 20rpx;
+  color: #0284C7;
+  background: #F0F9FF;
+  padding: 2rpx 10rpx;
+  border-radius: 6rpx;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+}
+.stat-item {
+  background: #F8FAFC;
+  border-radius: 12rpx;
+  padding: 20rpx 16rpx;
+  text-align: center;
+  border: 1rpx solid #E2E8F0;
+}
+.stat-num {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+.text-primary { color: #0284C7; }
+.text-success { color: #059669; }
+.text-shield { color: #16A34A; }
+.text-accent { color: #EA580C; }
+
+.stat-label {
+  font-size: 20rpx;
+  color: #64748B;
+  margin-top: 6rpx;
+}
+
+/* 密钥卡片 */
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.card-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.key-field {
+  margin-bottom: 16rpx;
+}
+.key-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.key-label {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #334155;
+}
+.copy-action {
+  font-size: 20rpx;
+  color: #0284C7;
+  text-decoration: underline;
+}
+.key-box {
+  background: #F8FAFC;
+  border: 1rpx solid #E2E8F0;
+  border-radius: 10rpx;
+  padding: 14rpx;
+  max-height: 120rpx;
+  overflow-y: auto;
+}
+.key-code {
+  font-size: 20rpx;
+  font-family: monospace;
+  color: #334155;
+  word-break: break-all;
+  line-height: 1.35;
+}
+
+.key-attr-list {
+  background: #F8FAFC;
+  border: 1rpx solid #E2E8F0;
+  border-radius: 10rpx;
+  padding: 14rpx 16rpx;
+}
+.attr-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6rpx;
+  font-size: 20rpx;
+}
+.attr-row:last-child {
+  margin-bottom: 0;
+}
+.attr-name {
+  color: #64748B;
+}
+.attr-val {
+  color: #0F172A;
+  font-weight: 500;
+}
+
+/* 国密规范 */
+.spec-item {
+  border-bottom: 1rpx solid #F1F5F9;
+  padding: 14rpx 0;
+}
+.spec-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.spec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6rpx;
+}
+.spec-std {
+  font-size: 20rpx;
+  color: #94A3B8;
+  font-family: monospace;
+}
+.spec-text {
+  font-size: 22rpx;
+  color: #475569;
+  line-height: 1.45;
+}
+
+/* 合规 */
+.comp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+.comp-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10rpx;
+  font-size: 22rpx;
+  color: #334155;
+  line-height: 1.4;
+}
+.comp-dot {
+  color: #059669;
+  font-weight: bold;
+}
+
+.actions-card {
+  margin-top: 10rpx;
+  margin-bottom: 40rpx;
+}
+.mt-20 {
+  margin-top: 16rpx;
+}

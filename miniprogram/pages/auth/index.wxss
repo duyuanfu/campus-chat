@@ -1,0 +1,151 @@
+.auth-page {
+  padding: 30rpx 24rpx 60rpx;
+  min-height: 100vh;
+  background: #F8FAFC;
+}
+
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30rpx 0 36rpx;
+}
+
+.logo-shield {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 20rpx;
+  background: #FFFFFF;
+  border: 1rpx solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+
+.logo-icon {
+  font-size: 54rpx;
+}
+
+.logo-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.logo-desc {
+  font-size: 24rpx;
+  color: #64748B;
+  margin-top: 6rpx;
+}
+
+.badge-row {
+  display: flex;
+  gap: 10rpx;
+  margin-top: 16rpx;
+}
+
+.auth-card {
+  padding: 30rpx 24rpx;
+}
+
+.tab-header {
+  display: flex;
+  border-bottom: 1rpx solid #E2E8F0;
+  margin-bottom: 28rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding-bottom: 18rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #64748B;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.tab-item.active {
+  color: #0284C7;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1rpx;
+  left: 30%;
+  right: 30%;
+  height: 4rpx;
+  background: #0284C7;
+  border-radius: 4rpx;
+}
+
+.form-group {
+  margin-bottom: 22rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 10rpx;
+}
+
+.crypto-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10rpx;
+  background: #F0F9FF;
+  border: 1rpx solid #BAE6FD;
+  padding: 14rpx 18rpx;
+  border-radius: 10rpx;
+  margin: 12rpx 0 24rpx;
+}
+
+.hint-icon {
+  font-size: 26rpx;
+  flex-shrink: 0;
+}
+
+.hint-text {
+  font-size: 22rpx;
+  color: #0369A1;
+  line-height: 1.4;
+}
+
+.sm2-hint {
+  background: #ECFDF5;
+  border-color: #A7F3D0;
+}
+.sm2-hint .hint-text {
+  color: #047857;
+}
+
+.submit-btn {
+  width: 100%;
+}
+
+/* 已登录卡片 */
+.login-status-card {
+  padding: 30rpx 24rpx;
+}
+.logged-user {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.logged-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+.logged-sub {
+  font-size: 22rpx;
+  color: #64748B;
+  margin-top: 4rpx;
+}
+.mt-20 {
+  margin-top: 20rpx;
+}

@@ -1,0 +1,129 @@
+.home-container {
+  padding: 20rpx;
+  min-height: 100vh;
+}
+
+/* 好友申请待处理提醒条 */
+.pending-notice-card {
+  background: #FFFBEB;
+  border: 1rpx solid #FDE68A;
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notice-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.notice-badge {
+  background: #D97706;
+  color: #FFFFFF;
+  font-size: 20rpx;
+  font-weight: 600;
+  padding: 2rpx 12rpx;
+  border-radius: 10rpx;
+}
+.notice-text {
+  font-size: 24rpx;
+  color: #92400E;
+  font-weight: 500;
+}
+.notice-arrow {
+  color: #D97706;
+  font-size: 24rpx;
+}
+
+/* 会话区 */
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 10rpx 4rpx 16rpx;
+}
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+.section-count {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+/* 会话列表项：整齐规整 */
+.conv-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  margin-bottom: 12rpx;
+  border-radius: 14rpx;
+}
+.conv-item:active {
+  background: #F8FAFC;
+}
+
+.conv-content {
+  flex: 1;
+  margin-left: 20rpx;
+  overflow: hidden;
+}
+
+.conv-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.conv-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 380rpx;
+}
+.conv-time {
+  font-size: 20rpx;
+  color: #94A3B8;
+}
+
+.conv-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.conv-preview {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  overflow: hidden;
+  flex: 1;
+  margin-right: 12rpx;
+}
+.lock-icon {
+  font-size: 18rpx;
+  opacity: 0.6;
+}
+.preview-text {
+  font-size: 24rpx;
+  color: #64748B;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.conv-preview.no-msg .preview-text {
+  color: #94A3B8;
+  font-style: italic;
+}
+
+.add-friend-btn {
+  margin-top: 24rpx;
+  font-size: 26rpx;
+  padding: 14rpx 36rpx;
+}

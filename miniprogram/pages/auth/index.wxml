@@ -1,0 +1,97 @@
+<view class="auth-page">
+  <!-- 顶部 Logo 与安全介绍 -->
+  <view class="auth-header">
+    <view class="logo-shield">
+      <text class="logo-icon">🛡️</text>
+    </view>
+    <view class="logo-title">校园安全聊天</view>
+    <view class="logo-desc">国密 SM2 · SM3 · SM4 强加密守护</view>
+    <view class="badge-row">
+      <text class="sm-badge sm-badge-sm2">SM2 密钥分发</text>
+      <text class="sm-badge sm-badge-sm3">SM3 完整性</text>
+      <text class="sm-badge sm-badge-sm4">SM4 密文入库</text>
+    </view>
+  </view>
+
+  <!-- 已登录状态卡片 -->
+  <view class="card login-status-card" wx:if="{{isLoggedIn}}">
+    <view class="logged-user">
+      <view class="avatar" style="background-color: {{loggedAvatarColor}}">
+        {{loggedAvatarChar}}
+      </view>
+      <view class="logged-info">
+        <view class="logged-name">{{currentUser.nickname || currentUser.username}}</view>
+        <view class="logged-sub">学号/账号：{{currentUser.username}} · SM2密钥已就绪</view>
+      </view>
+    </view>
+    <button class="btn btn-primary mt-20" bindtap="goToHome">进入消息首页</button>
+    <button class="btn btn-danger mt-20" bindtap="handleLogout">退出当前账号</button>
+  </view>
+
+  <!-- 表单卡片（未登录时展示） -->
+  <view class="card auth-card" wx:else>
+    <!-- 标签切换 -->
+    <view class="tab-header">
+      <view class="tab-item {{currentTab === 'login' ? 'active' : ''}}" bindtap="switchTab" data-tab="login">
+        账号登录
+      </view>
+      <view class="tab-item {{currentTab === 'register' ? 'active' : ''}}" bindtap="switchTab" data-tab="register">
+        注册新用户
+      </view>
+    </view>
+
+    <!-- 登录表单 -->
+    <view class="form-body" wx:if="{{currentTab === 'login'}}">
+      <view class="form-group">
+        <text class="form-label">用户名 / 学号</text>
+        <input class="input-control" placeholder="请输入用户名" value="{{loginForm.username}}" bindinput="onLoginInput" data-field="username" />
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">登录密码</text>
+        <input class="input-control" type="password" placeholder="请输入密码" value="{{loginForm.password}}" bindinput="onLoginInput" data-field="password" />
+      </view>
+
+      <view class="crypto-hint">
+        <text class="hint-icon">🔒</text>
+        <text class="hint-text">登录采用 SM3 密码杂凑算法加盐校验，登录令牌基于服务器 SM2 私钥进行数字签名。</text>
+      </view>
+
+      <button class="btn btn-primary submit-btn" loading="{{submitting}}" bindtap="doLogin">
+        立即登录
+      </button>
+    </view>
+
+    <!-- 注册表单 -->
+    <view class="form-body" wx:if="{{currentTab === 'register'}}">
+      <view class="form-group">
+        <text class="form-label">用户名 / 学号 (必填)</text>
+        <input class="input-control" placeholder="3-32位字符，如 student_01" value="{{regForm.username}}" bindinput="onRegInput" data-field="username" />
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">校园昵称 (选填)</text>
+        <input class="input-control" placeholder="如：李华 / 计算机系小张" value="{{regForm.nickname}}" bindinput="onRegInput" data-field="nickname" />
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">登录密码 (必填)</text>
+        <input class="input-control" type="password" placeholder="至少6位密码" value="{{regForm.password}}" bindinput="onRegInput" data-field="password" />
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">确认密码</text>
+        <input class="input-control" type="password" placeholder="再次输入密码" value="{{regForm.confirmPassword}}" bindinput="onRegInput" data-field="confirmPassword" />
+      </view>
+
+      <view class="crypto-hint sm2-hint">
+        <text class="hint-icon">🛡️</text>
+        <text class="hint-text">注册时将自动为该账号在国密体系中派生一对专属 SM2 非对称密钥对，公钥用于好友间会话密钥分发。</text>
+      </view>
+
+      <button class="btn btn-primary submit-btn" loading="{{submitting}}" bindtap="doRegister">
+        生成国密密钥并注册
+      </button>
+    </view>
+  </view>
+</view>
