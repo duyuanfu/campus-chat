@@ -197,7 +197,12 @@ async def _handle_ws_message(websocket: WebSocket, user_id: int, data: dict):
       - 给发送者：{"type": "ack", ...同下}
       - 给接收者：{"type": "message", "id": 1, "from": 1, "to": 2, "content": "你好", "created_at": "..."}
     """
-    if data.get("type") != "send":
+    msg_type = data.get("type")
+    if msg_type == "ping":
+        await websocket.send_json({"type": "pong"})
+        return
+
+    if msg_type != "send":
         await websocket.send_json({"type": "error", "message": "未知的消息类型"})
         return
 

@@ -37,13 +37,19 @@ App({
       this.globalData.userInfo = user;
       // 自动建立 WebSocket 长连接
       ws.connect();
-      // 后台更新最新用户信息
+      // 验证 Token 在当前后端环境中是否有效
       api.getMe().then(latestUser => {
         if (latestUser) {
           this.globalData.userInfo = latestUser;
           api.setCurrentUser(latestUser);
         }
-      }).catch(() => {});
+      }).catch(err => {
+        // 如果后端服务换了环境或重置导致 Token 无效，自动平滑清理，防止死循环重连挂死
+        console.warn('Current token invalid in this host:', err);
+        ws.close();
+        api.clearAuth();
+        this.globalData.userInfo = null;
+      });
       return true;
     }
     return false;

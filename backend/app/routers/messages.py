@@ -84,8 +84,8 @@ def send_message(req: MessageCreate, current_user: dict = Depends(get_current_us
 
 
 @router.get("/{friend_id}", summary="聊天记录")
-def history(friend_id: int, current_user: dict = Depends(get_current_user), limit: int = 200):
-    """获取与某好友的聊天记录（解密为明文，并做 SM3 完整性校验）。"""
+def history(friend_id: int, current_user: dict = Depends(get_current_user), limit: int = 40):
+    """获取与某好友的聊天记录（默认拉取最近40条，解密为明文并校验完整性）。"""
     uid = current_user["user_id"]
     with db() as conn:
         me = conn.execute("SELECT * FROM users WHERE id = ?", (uid,)).fetchone()

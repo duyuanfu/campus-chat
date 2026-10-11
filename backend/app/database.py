@@ -43,13 +43,19 @@ CREATE TABLE IF NOT EXISTS messages (
     sm3_hash    TEXT NOT NULL,        -- 明文的 SM3 哈希，用于完整性校验
     created_at  TEXT DEFAULT (datetime('now','localtime'))
 );
+
+CREATE INDEX IF NOT EXISTS idx_messages_pair ON messages(sender_id, receiver_id, id DESC);
+CREATE INDEX IF NOT EXISTS idx_friendships_users ON friendships(user_a, user_b);
+CREATE INDEX IF NOT EXISTS idx_requests_to ON friend_requests(to_id, status);
 """
 
 
 def get_conn():
-    conn = sqlite3.connect(config.DATABASE_PATH)
+    conn = sqlite3.connect(config.DATABASE_PATH, timeout=30.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA journal_mode = WAL")
+    conn.execute("PRAGMA synchronous = NORMAL")
     return conn
 
 

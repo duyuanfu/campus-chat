@@ -46,8 +46,8 @@ function request(urlPath, method = 'GET', data = null, options = {}) {
   const token = getToken();
   const url = `${host}${urlPath}`;
 
-  if (options.loading !== false) {
-    wx.showLoading({ title: options.loadingTitle || '加载中...', mask: true });
+  if (options.loading === true) {
+    wx.showLoading({ title: options.loadingTitle || '加载中...', mask: false });
   }
 
   return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ function request(urlPath, method = 'GET', data = null, options = {}) {
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
-      timeout: 10000,
+      timeout: 8000,
       success(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data);
@@ -86,7 +86,7 @@ function request(urlPath, method = 'GET', data = null, options = {}) {
         reject(err);
       },
       complete() {
-        if (options.loading !== false) {
+        if (options.loading === true) {
           wx.hideLoading();
         }
       }
@@ -124,8 +124,8 @@ const api = {
   deleteFriend: (friendId) => request(`/api/friends/${friendId}`, 'DELETE'),
 
   // 4. 安全与演示
-  getSecurityStats: () => request('/api/security/stats', 'GET', null, { loading: false }),
-  runCryptoDemo: (content) => request('/api/security/demo', 'POST', { content }),
+  getSecurityStats: () => request('/api/security/stats', 'GET', null, { loading: false, showError: false }),
+  runCryptoDemo: (content) => request('/api/security/demo', 'POST', { content }, { loading: false, showError: false }),
 };
 
 module.exports = api;
