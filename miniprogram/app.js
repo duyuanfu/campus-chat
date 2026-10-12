@@ -60,8 +60,16 @@ App({
     api.clearAuth();
     this.globalData.userInfo = null;
     this.globalData.isWsConnected = false;
-    wx.reLaunch({
-      url: '/pages/auth/index'
-    });
+
+    // 获取当前路由，避免在同一页面发起无效 reLaunch
+    const pages = getCurrentPages();
+    const currentPage = pages[pages.length - 1];
+    const currentRoute = currentPage ? currentPage.route : '';
+
+    if (currentRoute !== 'pages/auth/index') {
+      wx.reLaunch({
+        url: '/pages/auth/index'
+      });
+    }
   }
 });

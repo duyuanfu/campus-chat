@@ -145,16 +145,12 @@ Page({
   },
 
   handleLogout() {
-    wx.showModal({
-      title: '确认退出',
-      content: '退出登录将清除本地会话缓存并断开安全加密信道，是否继续？',
-      success: (res) => {
-        if (res.confirm) {
-          app.logout();
-          this.checkCurrentAuth();
-          wx.showToast({ title: '已退出登录', icon: 'success' });
-        }
-      }
+    app.logout();
+    this.setData({
+      isLoggedIn: false,
+      currentUser: null,
+      currentTab: 'login',
     });
+    wx.showToast({ title: '已退出登录', icon: 'success', duration: 1200 });
   },
 });
